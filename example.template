@@ -1,0 +1,8 @@
+set PC (),
+set RAM[0] (),
+set RAM[1] (),
+set RAM[2] (),
+repeat () {
+	ticktock;
+}
+output;
