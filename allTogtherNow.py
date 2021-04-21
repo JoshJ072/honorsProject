@@ -31,7 +31,7 @@ template = []
 inputs = []
 
 # Opening the file
-file = open(fileName + '.template')
+file = open(chipName + '.template')
 
 # Extracting the lines
 numInputs = 0
