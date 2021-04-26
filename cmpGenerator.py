@@ -3,6 +3,7 @@ class Formating:
     firstGap = 0
     writeSpace = 0
     secondGap = 0
+    leftAlign = False
     
     def __init__(self, name, first, write, second):
         self.name = name
@@ -33,7 +34,7 @@ def importFromCSV():
 
 
 # Get output-list
-output_list = 'a%B3.1.3 b%B3.1.3 out%B3.1.3' # input('Please put the output-list line with no semicolon: ')
+output_list = input('Please put the output-list line with no semicolon: ')
 
 # Parse output-list
 objects = []
@@ -42,7 +43,10 @@ while (len(output_list) > 2):
     name = output_list[:output_list.index('%')]
     
     #   cut off up to next value
-    output_list = output_list[output_list.index('%')+2:]
+    output_list = output_list[output_list.index('%')+1:]
+    
+    val = output_list[0]
+    output_list = output_list[1:]
     
     firstGap = int(output_list[:output_list.index('.')])
     output_list = output_list[output_list.index('.')+1:]
@@ -59,15 +63,20 @@ while (len(output_list) > 2):
         secondGap = int(output_list)
     
     obj = Formating(name, firstGap, writeSpace, secondGap)
+    if val == 'S':
+        obj.leftAlign = True
     objects.append(obj)
 
 # print name to file
-fileName = 'exampleCMP' # input('What is the file name? ')
+fileName = input('What is the file name (no extension)? ')
 cmp = open(fileName + '.cmp', 'w')
 
 cmp.write('|')
 for obj in objects:
-    cmp.write(obj.name.center(obj.firstGap + obj.writeSpace + obj.secondGap))
+    if (len(obj.name) > (obj.firstGap + obj.writeSpace + obj.secondGap)):
+        cmp.write(obj.name[:obj.firstGap + obj.writeSpace + obj.secondGap].center(obj.firstGap + obj.writeSpace + obj.secondGap))
+    else:
+        cmp.write(obj.name.center(obj.firstGap + obj.writeSpace + obj.secondGap))
     cmp.write('|')
 cmp.write('\n')
 
@@ -87,7 +96,10 @@ while len(values) != 0:
             values.pop(0)
         else:
             cmp.write(' ' * obj.firstGap)
-            cmp.write(str(values.pop(0)).rjust(obj.writeSpace))
+            if (obj.leftAlign):
+                cmp.write(str(values.pop(0)).ljust(obj.writeSpace))
+            else:
+                cmp.write(str(values.pop(0)).rjust(obj.writeSpace))
             cmp.write(' ' * obj.secondGap)
         cmp.write('|')
     cmp.write('\n')
