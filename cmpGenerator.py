@@ -11,6 +11,27 @@ class Formating:
         self.secondGap = second
 
 
+def getUserInput():
+    values = []
+    while True:
+        for obj in objects:
+            val = input('Value for ' + obj.name + ': ')
+            values.append(val)
+        ans = input('Would you like to input another test case (y/n)? ')
+        if (ans == 'n'):
+            return values
+
+def importFromCSV():
+    values = []
+    csv = open(fileName + '.csv')
+    for line in csv:
+        parts = line.split(',')
+        for part in parts:
+            values.append(part.strip())
+    csv.close()
+    return values
+
+
 # Get output-list
 output_list = 'a%B3.1.3 b%B3.1.3 out%B3.1.3' # input('Please put the output-list line with no semicolon: ')
 
@@ -41,8 +62,8 @@ while (len(output_list) > 2):
     objects.append(obj)
 
 # print name to file
-fileName = 'example.cmp' # input('What is the file name? ')
-cmp = open(fileName, 'w')
+fileName = 'exampleCMP' # input('What is the file name? ')
+cmp = open(fileName + '.cmp', 'w')
 
 cmp.write('|')
 for obj in objects:
@@ -51,14 +72,11 @@ for obj in objects:
 cmp.write('\n')
 
 # get Vals
-values = []
-while True:
-    for obj in objects:
-        val = input('Value for ' + obj.name + ': ')
-        values.append(val)
-    ans = input('Would you like to input another test case (y/n)? ')
-    if (ans == 'n'):
-        break
+if (input('Would you like to input values from a csv (y/n)? ') == 'y'):
+    values = importFromCSV()
+else:
+    values = getUserInput()
+
 
 # Print vals
 while len(values) != 0:
