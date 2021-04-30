@@ -1,0 +1,5 @@
+output-list x%B1.16.1 y%B1.4.1 out%B1.16.1;
+set x (),
+set y (),
+eval,
+output;

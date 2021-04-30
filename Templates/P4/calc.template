@@ -1,0 +1,12 @@
+output-list RAM[0]%D2.6.2 RAM[1]%D2.6.2 RAM[2]%D2.6.2 RAM[3]%D2.6.2 RAM[4]%D2.6.2;
+set RAM[0] (),	// Set test arguments
+set RAM[1] (),
+set RAM[2] (),  
+set RAM[3] ();	// Test that program initialized to 0
+repeat () {
+  ticktock;
+}
+set RAM[0] (),   // Restore arguments in case program used them as loop counter
+set RAM[1] (),
+set RAM[2] (),
+output;

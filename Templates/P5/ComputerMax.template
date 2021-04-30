@@ -1,0 +1,11 @@
+output-list time%S1.4.1 reset%B2.1.2 ARegister[]%D1.7.1 DRegister[]%D1.7.1 PC[]%D0.4.0 RAM16K[0]%D1.7.1 RAM16K[1]%D1.7.1 RAM16K[2]%D1.7.1;
+ROM32K load Max.hack,
+set reset 0,
+set RAM16K[0] (),
+set RAM16K[1] (),
+output;
+repeat () {
+    tick, tock, output;
+}
+set reset 1,
+tick, tock, output;
